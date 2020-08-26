@@ -96,6 +96,23 @@ class Profissional {
             }
         });
     }
+
+    logIn(data, res) {
+        const sql = `
+        SELECT * FROM 
+            profissional
+        WHERE 
+            email = '${data.email}' AND senha = '${crypto.criptografar(data.senha)}'`;
+
+        conexao.query(sql, data, (erro, resultados) => {
+            if(erro){
+                res.status(400).json(erro);
+            } else {
+                res.status(200).json(resultados[0]);
+                
+            }
+        });
+    }
 }
 
 module.exports = new Profissional;
