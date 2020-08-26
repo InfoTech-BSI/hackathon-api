@@ -2,12 +2,25 @@
 
 const conexao = require('../database/conexao');
 
+const crypto = require('../utils/crypto');
+
 class Profissional {
     create(data, res) {
         const sql = `
                 INSERT INTO 
-                    profissional (nome, email, tipoPerfil, senha, unidadesSaude_idUnidadesSaude) 
-                VALUES ('${data.nome}', '${data.email}', '${data.tipoPefil}', '${data.senha}', ${data.idUnidadeSaude})`;
+                    profissional (
+                        nome, 
+                        email, 
+                        tipoPerfil, 
+                        senha, 
+                        unidadesSaude_idUnidadesSaude
+                    ) 
+                VALUES (
+                    '${data.nome}', 
+                    '${data.email}', 
+                    '${data.tipoPefil}', 
+                    '${crypto.criptografar(data.senha)}', 
+                    ${data.idUnidadeSaude})`;
 
         conexao.query(sql, data, (erro, resultados) => {
             if(erro){
@@ -54,7 +67,7 @@ class Profissional {
                     nome = '${data.nome}', 
                     email = '${data.email}', 
                     tipoPerfil = '${data.tipoPefil}', 
-                    senha = '${data.senha}', 
+                    senha = '${crypto.criptografar(data.senha)}', 
                     unidadesSaude_idUnidadesSaude = ${data.idUnidadeSaude}
                 WHERE 
                     idProfissional = ${id}`;
