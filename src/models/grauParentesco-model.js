@@ -35,7 +35,7 @@ class GrauParentesco {
                 SELECT * FROM 
                     grauparentesco 
                 WHERE 
-                    idGrauParentesco = ${id}`;
+                    idGrauParentesco = ?`;
 
         conexao.query(sql, id, (erro, resultados) => {
             if(erro){

@@ -25,3 +25,8 @@ exports.delete = (req, res) => {
     const id = parseInt(req.params.idProfissional);
     model.delete(id, res);
 };
+
+exports.logIn = (req, res) => {
+    const usuario = req.body;
+    model.logIn(usuario, res);
+}
