@@ -12,8 +12,8 @@ exports.getById = (req, res) => {
 };
 
 exports.post = (req, res) => {
-    const sinais = req.body;
-    model.create(sinais, res);
+    const contato = req.body;
+    model.create(contato, res);
 };
 
 exports.put = (req, res) => {

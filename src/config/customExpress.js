@@ -11,6 +11,7 @@ const contatoRoute = require('../routes/contato-route');
 const enderecoRoute = require('../routes/endereco-route');
 const familiarRoute = require('../routes/familiar-route');
 const grauParentescoRoute = require('../routes/grauParentesco-route');
+const pacienteRoute = require('../routes/paciente-route');
 const profissionalRoute = require('../routes/profissional-route');
 const sinaisRoute = require('../routes/sinais-route');
 const unidadeSaudeRoute = require('../routes/unidadeSaude-route');
@@ -28,6 +29,7 @@ module.exports = () => {
     app.use('/endereco', enderecoRoute);
     app.use('/familiar', familiarRoute);
     app.use('/grauParentesco', grauParentescoRoute);
+    app.use('/paciente', pacienteRoute);
     app.use('/profissional', profissionalRoute);
     app.use('/sinais', sinaisRoute);
     app.use('/unidadeSaude', unidadeSaudeRoute);
