@@ -19,7 +19,7 @@ class UnidadeSaude {
     }
 
     get(res) {
-        const sql = `SELECT * FROM unidadeSaude`;
+        const sql = `SELECT * FROM unidadesaude u INNER JOIN endereco e ON u.endereco_idEndereco = e.idEndereco`;
 
         conexao.query(sql, (erro, resultados) => {
             if(erro){
