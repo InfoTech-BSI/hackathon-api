@@ -7,7 +7,7 @@ class UnidadeSaude {
         const sql = `
                 INSERT INTO 
                     unidadeSaude (nome, sintomatica, endereco_idEndereco) 
-                VALUES ('${data.nome}', '${data.sintomatica}', ${data.endereco})`;
+                VALUES ('${data.nome}', '${data.sintomatica}', (SELECT MAX(idEndereco) FROM endereco))`;
 
         conexao.query(sql, data, (erro, resultados) => {
             if(erro){
