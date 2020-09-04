@@ -7,7 +7,7 @@ const conexao  = mysql.createConnection({
     port: '3306',
     user: 'admin', //root
     password: 'info_bsi', //''
-    //database: 'covid'
+    database: 'covid'
 });
 
 IP: 
