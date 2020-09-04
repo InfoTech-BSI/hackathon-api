@@ -25,3 +25,7 @@ exports.delete = (req, res) => {
     const id = parseInt(req.params.idPaciente);
     model.delete(id, res);
 };
+
+exports.dashboard = (req, res) => {
+    model.dashboard(res);
+}

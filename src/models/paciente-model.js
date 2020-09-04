@@ -1,10 +1,14 @@
 'use strict'
 
 const conexao = require('../database/conexao');
-//https://viacep.com.br/ws/17580000/json/
+const pontPaciente = require('../utils/pontuacaoPaciente');
+const moment = require('moment');
 
 class Paciente {
     create(data, res) {
+        //nasc = moment("2001-06-14")
+        var idade = moment(data.dataNascimento);
+        var pontos = pontPaciente.pontos(data.febre, data.tosse, data.cansaco, idade);
         const sql = `
                 INSERT INTO 
                     paciente (
@@ -51,7 +55,10 @@ class Paciente {
                     '${data.orientacao}',
                     '${data.apetite}',
                     '${data.observacoesGerais}',
-                    '${data.conduta}',
+                    '${data.febre}',
+                    '${data.tosse}',
+                    '${data.cansaco}',
+                    '${this.pontos}',
                     '${data.endereco_idEndereco}',
                     '${data.Contato_idContato}',
                     '${data.comorbidades_idComorbidades}',
@@ -62,7 +69,7 @@ class Paciente {
             if(erro){
                 res.status(400).json(erro);
             } else {
-                res.status(201).json(data);
+                res.status(201).json([data, pontPaciente.conduta(this.pontos)]);
             }
         });
     }
@@ -145,6 +152,22 @@ class Paciente {
                 res.status(400).json(erro);
             } else {
                 res.status(200).json({ id });
+            }
+        });
+    }
+
+    dashboard(res) {
+        const sql = `
+                SELECT count(*) FROM 
+                    paciente
+                WHERE
+                    resultadoExame = 'P'`;
+
+        conexao.query(sql, (erro, resultados) => {
+            if(erro){
+                res.status(400).json(erro);
+            } else {
+                res.status(200).json(resultados);
             }
         });
     }

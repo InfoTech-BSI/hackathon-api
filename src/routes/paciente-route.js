@@ -10,4 +10,6 @@ router.post('/', controller.post);
 router.put('/:idPaciente', controller.put);
 router.delete('/:idPaciente', controller.delete);
 
+router.get('/dashboard', controller.dashboard);
+
 module.exports = router; 
