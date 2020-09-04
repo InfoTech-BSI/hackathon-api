@@ -7,7 +7,7 @@ class UnidadeSaude {
         const sql = `
                 INSERT INTO 
                     unidadeSaude (nome, sintomatica, endereco_idEndereco) 
-                VALUES ('${data.nome}', '${data.sintomatica}', ${data.endereco})`;
+                VALUES ('${data.nome}', '${data.sintomatica}', (SELECT MAX(idEndereco) FROM endereco))`;
 
         conexao.query(sql, data, (erro, resultados) => {
             if(erro){
@@ -31,11 +31,8 @@ class UnidadeSaude {
     }
 
     getById(id, res) {
-        const sql = `
-                SELECT * FROM 
-                    unidadeSaude 
-                WHERE 
-                    idUnidadeSaude = ${id}`;
+        const sql = `SELECT * FROM unidadesaude u INNER JOIN endereco e ON u.endereco_idEndereco = e.idEndereco  
+                WHERE idUnidadeSaude = ${id}`;
 
         conexao.query(sql, id, (erro, resultados) => {
             if(erro){
