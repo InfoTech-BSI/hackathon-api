@@ -158,10 +158,12 @@ class Paciente {
 
     dashboard(res) {
         const sql = `
-                SELECT count(*) FROM 
-                    paciente
-                WHERE
-                    resultadoExame = 'P'`;
+                SELECT 
+                    count(case when resultadoExame= 'P' then 1 end) as confirmados,
+                    count(case when resultadoExame= 'A' then 1 end) as aguardando,
+                    count(case when dataObito is not null then 1 end) as obitos
+                FROM 
+                    paciente`;
 
         conexao.query(sql, (erro, resultados) => {
             if(erro){
